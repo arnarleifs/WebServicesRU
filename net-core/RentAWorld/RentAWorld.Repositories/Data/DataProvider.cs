@@ -7,6 +7,58 @@ namespace RentThePlace.Repositories.Data
     public static class DataProvider
     {
         private static readonly string _adminName = "RentalAdmin";
+
+        public static List<Owner> Owners = new List<Owner>
+        {
+            new Owner
+            {
+                Id = 1,
+                Name = "Tanisha Gamble",
+                RentalId = 1
+            },
+            new Owner
+            {
+                Id = 2,
+                Name = "Hill Haney",
+                RentalId = 2
+            },
+            new Owner
+            {
+                Id = 3,
+                Name = "Stout Craft",
+                RentalId = 3
+            },
+            new Owner
+            {
+                Id = 4,
+                Name = "Shelly Banks",
+                RentalId = 4
+            },
+            new Owner
+            {
+                Id = 5,
+                Name = "Arlene Melendez",
+                RentalId = 5
+            },
+            new Owner
+            {
+                Id = 6,
+                Name = "Estela Rios",
+                RentalId = 6
+            },
+            new Owner
+            {
+                Id = 7,
+                Name = "Mack Mcknight",
+                RentalId = 7
+            },
+            new Owner
+            {
+                Id = 8,
+                Name = "Mamie Shepard",
+                RentalId = 8
+            }
+        };
         public static List<Rental> Rentals = new List<Rental> 
         {
             new Rental

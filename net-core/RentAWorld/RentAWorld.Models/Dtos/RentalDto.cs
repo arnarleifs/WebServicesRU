@@ -1,6 +1,8 @@
+using RentAWorld.Models.HyperMedia;
+
 namespace RentAWorld.Models.Dtos
 {
-    public class RentalDto
+    public class RentalDto : HyperMediaModel
     {
         public int Id { get; set; }
         public string Title { get; set; }

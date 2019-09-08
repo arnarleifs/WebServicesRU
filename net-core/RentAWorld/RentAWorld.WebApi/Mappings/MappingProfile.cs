@@ -12,6 +12,7 @@ namespace RentAWorld.WebApi.Mappings
         {
             CreateMap<Rental, RentalDto>()
                 .ForMember(src => src.AuthorStamp, opt => opt.MapFrom<AuthorStampResolver>());
+            CreateMap<Owner, OwnerDto>();
             CreateMap<RentalInputModel, Rental>()
                 .ForMember(src => src.DateCreated, opt => opt.MapFrom(src => DateTime.Now))
                 .ForMember(src => src.DateModified, opt => opt.MapFrom(src => DateTime.Now))

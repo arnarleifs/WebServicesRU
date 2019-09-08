@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RentAWorld.Models.InputModels;
 using RentAWorld.Services;
-using RentAWorld.WebApi.Models;
 
 namespace RentAWorld.WebApi.Controllers
 {
@@ -12,9 +10,11 @@ namespace RentAWorld.WebApi.Controllers
     public class RentalController : ControllerBase
     {
         private RentalService _rentalService;
+        private OwnerService _ownerService;
         public RentalController(IMapper mapper)
         {
             _rentalService = new RentalService(mapper);
+            _ownerService = new OwnerService(mapper);
         }
 
         // http://localhost:5000/api/rentals
@@ -75,6 +75,20 @@ namespace RentAWorld.WebApi.Controllers
         {
             _rentalService.DeleteRentalById(id);
             return NoContent();
+        }
+
+        [HttpGet]
+        [Route("{rentalId:int}/owners/{ownerId:int}")]
+        public IActionResult GetOwnerAssociatedWithRentalById(int rentalId, int ownerId)
+        {
+            return Ok(_ownerService.GetOwnerByRentalId(rentalId, ownerId));
+        }
+
+        [HttpGet]
+        [Route("{rentalId:int}/owners")]
+        public IActionResult GetOwnersAssociatedWithRental(int rentalId)
+        {
+            return Ok(_ownerService.GetOwnersByRentalId(rentalId));
         }
     }
 }
