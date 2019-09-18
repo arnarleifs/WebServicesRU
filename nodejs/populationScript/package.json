@@ -1,0 +1,17 @@
+{
+  "name": "populationScript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "collection.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Arnar Leifsson <arnarl@ru.is> (http://leifsson.com)",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "cli-progress": "^3.1.0",
+    "mongodb": "^3.3.2"
+  }
+}
