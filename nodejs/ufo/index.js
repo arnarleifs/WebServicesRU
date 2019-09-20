@@ -37,9 +37,14 @@ app.put('/api/ufos/:ufoId', function(req, res) {
   });
 });
 
+// http://localhost:3000/api/ufos/
 app.delete('/api/ufos/:ufoId', function(req, res) {
   const ufoId = req.params.ufoId;
-  return res.json({ ufoId });
+  ufoService.deleteUfo(ufoId, function() {
+    return res.status(204).send();
+  }, function(err) {
+    return res.status(400).json(err);
+  });
 });
 
 // http://localhost:3000

@@ -28,8 +28,11 @@ function updateUfo(ufo, id, successCb, errorCb) {
   });
 };
 
-function deleteUfo(id) {
-
+function deleteUfo(id, successCb, errorCb) {
+  Ufo.deleteOne({ _id: id }, function(err, result) {
+    if (err) { errorCb(err); }
+    else { successCb(); }
+  });
 };
 
 module.exports = {
