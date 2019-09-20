@@ -6,17 +6,15 @@ const app = express();
 app.use(bodyParser.json());
 
 // http://localhost:3000/api/ufos [GET]
-app.get('/api/ufos', function(req, res) {
-  ufoService.getAllUfos(function (ufos) {
-    return res.json(ufos);
-  });
+app.get('/api/ufos', async function(req, res) {
+  const result = await ufoService.getAllUfos();
+  return res.json(result);
 });
 
-app.get('/api/ufos/:ufoId', function(req, res) {
+app.get('/api/ufos/:ufoId', async function(req, res) {
   const ufoId = req.params.ufoId;
-  ufoService.getUfoById(ufoId, function(ufo) {
-    return res.json(ufo);
-  });
+  const ufo = await ufoService.getUfoById(ufoId);
+  return res.json(ufo);
 });
 
 app.post('/api/ufos', function(req, res) {

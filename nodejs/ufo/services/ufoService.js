@@ -1,17 +1,27 @@
 const Ufo = require('../data/db').Ufo;
 
-function getAllUfos(cb) {
-  Ufo.find({}, function(err, ufos) {
-    if (err) { throw new Error(err); }
-    cb(ufos);
-  });
-};
+const globalTryCatch = async cb => {
+  try {
+    return await cb();
+  } catch(err) {
+    return err;
+  }
+}
 
-function getUfoById(id, cb) {
-  Ufo.findById(id, function(err, ufo) {
-    if (err) { throw new Error(err); }
-    cb(ufo);
+const getAllUfos = async () => {
+  return await globalTryCatch(async () => {
+    const ufos = await Ufo.find({});
+    return ufos;
   });
+}
+
+const getUfoById = async id => {
+  try {
+    const ufo = await Ufo.findById(id);
+    return ufo;
+  } catch(err) {
+    return err;
+  }
 };
 
 function createNewUfo(ufo, successCb, errorCb) {
