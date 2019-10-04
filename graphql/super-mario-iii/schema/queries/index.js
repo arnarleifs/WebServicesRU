@@ -3,6 +3,6 @@ module.exports = `
     allEnemies: [Enemy!]!
     allCharacters: [Character!]!
     allLevels: [Level!]!
-    enemy(id: Int!): Enemy!
+    enemy(id: String!): Enemy!
   }
 `;

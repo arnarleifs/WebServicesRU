@@ -1,7 +1,7 @@
 module.exports = `
   type Mutation {
     createCharacter(input: CharacterInput!): Character!
-    updateCharacter(id: Int! description: String!): Character!
-    deleteCharacter(id: Int!): Boolean!
+    updateCharacter(id: String! description: String!): Character!
+    deleteCharacter(id: String!): Boolean!
   }
 `;
