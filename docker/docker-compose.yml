@@ -1,0 +1,22 @@
+version: '3'
+services:
+    pokemon-api:
+        build: ./pokemon-api
+        container_name: pokemon-api
+        ports:
+            - "80:3000"
+        networks:
+            - "pokemon-network"
+    pokemon-image-api:
+        build: ./pokemon-image-api
+        container_name: pokemon-image-api
+        networks:
+            - "pokemon-network"
+    pokemon-db:
+        image: mongo
+        container_name: pokemon-db
+        networks:
+            - "pokemon-network"
+networks:
+    pokemon-network:
+        driver: bridge
