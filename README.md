@@ -1,2 +1,2 @@
-# WebServices2019
-Web services course in RU on fall semester 2019
+# WebServices
+Web services course in RU on the fall semester
