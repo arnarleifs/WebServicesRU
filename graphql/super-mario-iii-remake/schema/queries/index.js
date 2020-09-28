@@ -1,8 +1,8 @@
 module.exports = `
   type Query {
-    allEnemies: [Enemy!]!
     allCharacters: [Character!]!
     allLevels: [Level!]!
+    allEnemies: [Enemy!]!
     enemy(id: String!): Enemy!
   }
 `;

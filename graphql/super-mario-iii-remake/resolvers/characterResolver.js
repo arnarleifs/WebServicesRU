@@ -6,31 +6,29 @@ module.exports = {
   },
   mutations: {
     createCharacter: (parent, args) => {
+      const id = args.input.name.toLowerCase().replace(' ', '-');
       const newCharacter = {
-        id: args.input.name.toLowerCase().replace(' ', '-'),
-        ...args.input
+        id,
+        name: args.input.name,
+        description: args.input.description
       };
       db.characters.push(newCharacter);
-
       return newCharacter;
     },
-    updateCharacter: (parent, args) => {
+    updateCharacter: (parent, args /* { id: '', description: '' } */) => {
       const character = db.characters.find(c => c.id === args.id);
-
-      // Update description;
       character.description = args.description;
-
+      db.characters = db.characters.map(c => {
+        if (c.id === character.id) {
+          return character;
+        }
+        return c;
+      });
       return character;
     },
     deleteCharacter: (parent, args) => {
-      const character = db.characters.find(c => c.id === args.id);
-      const index = db.characters.indexOf(character);
-
-      if (index === -1) { return false; }
-
-      db.characters.splice(index, 1);
-
+      db.characters = db.characters.filter(c => c.id !== args.id);
       return true;
     }
   }
-}
+};

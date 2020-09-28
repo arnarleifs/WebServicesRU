@@ -4,4 +4,4 @@ module.exports = {
   queries: {
     allLevels: () => db.levels()
   }
-}
+};
