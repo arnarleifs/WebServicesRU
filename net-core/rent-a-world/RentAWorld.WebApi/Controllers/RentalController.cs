@@ -1,94 +1,74 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RentAWorld.Models.InputModels;
-using RentAWorld.Services;
+using RentAWorld.Services.Interfaces;
 
 namespace RentAWorld.WebApi.Controllers
 {
-    [Route("api/rentals")]
-    [ApiController]
-    public class RentalController : ControllerBase
-    {
-        private RentalService _rentalService;
-        private OwnerService _ownerService;
-        public RentalController(IMapper mapper)
-        {
-            _rentalService = new RentalService(mapper);
-            _ownerService = new OwnerService(mapper);
-        }
+	[ApiController]
+	[Route("rentals")]
+	public class RentalController : ControllerBase
+	{
+		private readonly IRentalService _rentalService;
 
-        // http://localhost:5000/api/rentals
-        // http://localhost:5000/api/rentals?containUnavailable=false
-        [Route("")]
-        [HttpGet]
-        public IActionResult GetAllRentals([FromQuery] bool containUnavailable) 
-        {
-            return Ok(_rentalService.GetAllRentals(containUnavailable));
-        }
+		public RentalController(IRentalService rentalService)
+		{
+			_rentalService = rentalService;
+		}
 
-        // http://localhost:5000/api/rentals/4
-        [Route("{id:int}", Name = "GetRentalById")]
-        [HttpGet]
-        public IActionResult GetRentalById(int id)
-        {
-            return Ok(_rentalService.GetRentalById(id));
-        }
+		// /rentals?containAvailable=true
+		[HttpGet]
+		[Route("")]
+		public IActionResult GetAllRentals([FromQuery] bool containUnavailable)
+		{
+			return Ok(_rentalService.GetAllRentals(containUnavailable));
+		}
 
-        // http://localhost:5000/api/rentals [POST]
-        [Route("")]
-        [HttpPost]
-        public IActionResult CreateNewRental([FromBody] RentalInputModel body)
-        {
-            if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted."); }
-            
-            var entity = _rentalService.CreateNewRental(body);
+		// /rentals/1
+		[HttpGet]
+		[Route("{id:int}", Name = "GetRentalById")]
+		public IActionResult GetRentalById(int id)
+		{
+			return Ok(_rentalService.GetRentalById(id));
+		}
 
-            return CreatedAtRoute("GetRentalById", new { id = entity.Id }, null);
-        }
+		// /rentals
+		[HttpPost]
+		[Route("")]
+		public IActionResult CreateNewRental([FromBody] RentalInputModel rental)
+		{
+			var newId = _rentalService.CreateRental(rental);
+			return Ok(newId);
+		}
 
-        // http://localhost:5000/api/rentals/1 [PUT]
-        [Route("{id:int}")]
-        [HttpPut]
-        public IActionResult UpdateRentalById([FromBody] RentalInputModel rental, int id)
-        {
-            if (!ModelState.IsValid) { return BadRequest("Model is not properly formatted."); }
-            
-            _rentalService.UpdateRentalById(rental, id);
+		// /rentals/1
+		[HttpPut]
+		[Route("{id:int}")]
+		public IActionResult UpdateRentalById(int id, [FromBody] RentalInputModel rental)
+		{
+			_rentalService.UpdateRentalById(id, rental);
+			return NoContent();
+		}
 
-            return NoContent();
-        }
+		// /rentals/1
+		[HttpPatch]
+		[Route("{id:int}")]
+		public IActionResult UpdateRentalPartiallyById(int id, [FromBody] RentalInputModel rental)
+		{
+			_rentalService.UpdateRentalPartially(id, rental);
+			return NoContent();
+		}
 
-        // http://localhost:5000/api/rentals/1 [PATCH]
-        [Route("{id:int}")]
-        [HttpPatch]
-        public IActionResult UpdateRentalPartiallyById([FromBody] RentalInputModel rental, int id)
-        {
-            _rentalService.UpdateRentalPartiallyById(rental, id);
-
-            return NoContent();
-        }
-
-        // http://localhost:5000/api/rentals/1 [DELETE]
-        [Route("{id:int}")]
-        [HttpDelete]
-        public IActionResult DeleteRentalById(int id)
-        {
-            _rentalService.DeleteRentalById(id);
-            return NoContent();
-        }
-
-        [HttpGet]
-        [Route("{rentalId:int}/owners/{ownerId:int}")]
-        public IActionResult GetOwnerAssociatedWithRentalById(int rentalId, int ownerId)
-        {
-            return Ok(_ownerService.GetOwnerByRentalId(rentalId, ownerId));
-        }
-
-        [HttpGet]
-        [Route("{rentalId:int}/owners")]
-        public IActionResult GetOwnersAssociatedWithRental(int rentalId)
-        {
-            return Ok(_ownerService.GetOwnersByRentalId(rentalId));
-        }
-    }
+		// /rentals/1
+		[HttpDelete]
+		[Route("{id:int}")]
+		public IActionResult DeleteRentalById(int id)
+		{
+			_rentalService.DeleteRental(id);
+			return NoContent();
+		}
+	}
 }

@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/RentAWorld.WebApi/RentAWorld.WebApi.csproj",
+                "${workspaceFolder}/RentAWorld.WebApi/rent-a-world.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/RentAWorld.WebApi/RentAWorld.WebApi.csproj",
+                "${workspaceFolder}/RentAWorld.WebApi/rent-a-world.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +32,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/RentAWorld.WebApi/RentAWorld.WebApi.csproj",
+                "${workspaceFolder}/RentAWorld.WebApi/rent-a-world.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
