@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Veft.Software.RentAWorld.Models\Veft.Software.RentAWorld.Models.csproj" />
+    <ProjectReference Include="..\Veft.Software.RentAWorld.Repositories\Veft.Software.RentAWorld.Repositories.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
