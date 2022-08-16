@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>super_mario_iii_remake</RootNamespace>
+    <RootNamespace>demo_project</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,11 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Mutations\" />
-    <Folder Include="Schema\Interfaces\" />
-    <Folder Include="Schema\InputTypes\" />
   </ItemGroup>
 
 </Project>
