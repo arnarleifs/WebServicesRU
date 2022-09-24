@@ -18,5 +18,15 @@ public class DemoQuery : ObjectGraphType
             "allPhotos",
             resolve: context => data.Photos
         );
+
+        Field<ListGraphType<UserType>>(
+            "allUsers",
+            resolve: context => data.Users
+        );
+
+        Field<ListGraphType<TransactionType>>(
+            "allTransactions",
+            resolve: context => data.Transactions
+        );
     }
 }
