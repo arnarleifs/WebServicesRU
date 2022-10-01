@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentRegistration.Gateway.Api", "StudentRegistration.Gateway.Api\StudentRegistration.Gateway.Api.csproj", "{60007975-AEDA-430C-BEA5-E94E2EB735A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentRegistration.Gateway.Models", "StudentRegistration.Gateway.Models\StudentRegistration.Gateway.Models.csproj", "{1E3A969C-D60A-4BFA-9A1C-BC32FB31BEA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentRegistration.Gateway.Services", "StudentRegistration.Gateway.Services\StudentRegistration.Gateway.Services.csproj", "{F4AC2DD2-16A5-4DA4-BF80-5471D42664E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60007975-AEDA-430C-BEA5-E94E2EB735A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60007975-AEDA-430C-BEA5-E94E2EB735A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60007975-AEDA-430C-BEA5-E94E2EB735A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60007975-AEDA-430C-BEA5-E94E2EB735A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E3A969C-D60A-4BFA-9A1C-BC32FB31BEA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E3A969C-D60A-4BFA-9A1C-BC32FB31BEA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E3A969C-D60A-4BFA-9A1C-BC32FB31BEA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E3A969C-D60A-4BFA-9A1C-BC32FB31BEA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4AC2DD2-16A5-4DA4-BF80-5471D42664E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4AC2DD2-16A5-4DA4-BF80-5471D42664E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4AC2DD2-16A5-4DA4-BF80-5471D42664E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4AC2DD2-16A5-4DA4-BF80-5471D42664E2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
