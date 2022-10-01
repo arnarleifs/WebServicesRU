@@ -6,6 +6,8 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using StudentRegistration.UserService.Console.Handlers;
 using StudentRegistration.UserService.Data.Contexts;
+using StudentRegistration.UserService.Services.Implementations;
+using StudentRegistration.UserService.Services.Interfaces;
 
 var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
@@ -15,6 +17,7 @@ var builder = Host.CreateDefaultBuilder(args)
     .ConfigureServices(
         (_, services) =>
         {
+            services.AddScoped<IQueueService, QueueService>();
             services.AddDbContext<UserDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("UserDatabase"),
