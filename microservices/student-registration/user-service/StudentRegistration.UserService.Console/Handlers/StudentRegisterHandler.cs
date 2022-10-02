@@ -24,7 +24,9 @@ namespace StudentRegistration.UserService.Console.Handlers
         {
             var body = arguments.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
+
             var inputModel = JsonSerializer.Deserialize<StudentRegistrationTransit>(message);
+            if (inputModel == null) { throw new Exception("The input model cannot be null."); }
 
             var username = UsernameGenerationService.GenerateUsername(inputModel.FullName, inputModel.Semester);
 
@@ -32,7 +34,12 @@ namespace StudentRegistration.UserService.Console.Handlers
 
             _dbContext.Users.Add(new User
             {
-                
+                Email = inputModel.Email,
+                UserName = username,
+                FullName = inputModel.FullName,
+                Address = inputModel.Address,
+                City = inputModel.City,
+                PostalCode = inputModel.PostalCode
             });
 
             _dbContext.SaveChanges();
