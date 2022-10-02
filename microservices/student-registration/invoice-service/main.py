@@ -23,10 +23,11 @@ channel.queue_bind(exchange=exchange, queue=queue, routing_key='student-registra
 
 def send_invoice(ch, method, properties, data):
     parsed_msg = json.loads(data)
-    post(base_url, {
+    response = post('{base_url}/200', {
         'kennitala': parsed_msg['kennitala'],
         'price': parsed_msg['price']
     })
+    print(response.content)
 
 channel.basic_consume(on_message_callback=send_invoice,
                       queue=queue,
