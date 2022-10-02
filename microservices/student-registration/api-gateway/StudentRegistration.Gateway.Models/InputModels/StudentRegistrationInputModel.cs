@@ -14,6 +14,8 @@ namespace StudentRegistration.Gateway.Models.InputModels
         [Required]
         public string AppliedMajor { get; set; } = "";
         [Required]
+        public int Price { get; set; }
+        [Required]
         public string Semester { get; set; } = "";
         public string? Address { get; set; }
         public string? City { get; set; }

@@ -7,6 +7,7 @@ namespace StudentRegistration.UserService.Models.Transits
         public string Email { get; set; } = "";
         public string? Username { get; set; }
         public string AppliedMajor { get; set; } = "";
+        public int Price { get; set; }
         public string Semester { get; set; } = "";
         public string? Address { get; set; }
         public string? City { get; set; }
