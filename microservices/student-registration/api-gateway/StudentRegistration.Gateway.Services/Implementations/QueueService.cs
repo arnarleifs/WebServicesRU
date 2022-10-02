@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
+using StudentRegistration.Gateway.Services.Helpers;
 using StudentRegistration.Gateway.Services.Interfaces;
 
 namespace StudentRegistration.Gateway.Services.Implementations
@@ -28,7 +29,7 @@ namespace StudentRegistration.Gateway.Services.Implementations
         }
 
         public void PublishTopic<T>(string routingKey, T data) where T : class =>
-            _channel.BasicPublish(_exchange, routingKey, body: Encoding.UTF8.GetBytes(JsonSerializer.Serialize(data)));
+            _channel.BasicPublish(_exchange, routingKey, body: Encoding.UTF8.GetBytes(JsonSerializerHelper.SerializeWithCamelCasing(data)));
 
         public void Dispose()
         {

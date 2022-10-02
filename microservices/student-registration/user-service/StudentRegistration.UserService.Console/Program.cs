@@ -17,6 +17,7 @@ var builder = Host.CreateDefaultBuilder(args)
     .ConfigureServices(
         (_, services) =>
         {
+            services.AddTransient<StudentRegisterHandler>();
             services.AddScoped<IQueueService, QueueService>();
             services.AddDbContext<UserDbContext>(options =>
             {

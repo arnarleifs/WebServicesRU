@@ -1,9 +1,9 @@
 using System.Text;
-using System.Text.Json;
 using RabbitMQ.Client.Events;
 using StudentRegistration.UserService.Data.Contexts;
 using StudentRegistration.UserService.Data.Entities;
 using StudentRegistration.UserService.Models.Transits;
+using StudentRegistration.UserService.Services.Helpers;
 using StudentRegistration.UserService.Services.Implementations;
 using StudentRegistration.UserService.Services.Interfaces;
 
@@ -25,17 +25,17 @@ namespace StudentRegistration.UserService.Console.Handlers
             var body = arguments.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
 
-            var inputModel = JsonSerializer.Deserialize<StudentRegistrationTransit>(message);
+            var inputModel = JsonSerializerHelper.DeserializeWithCamelCasing<StudentRegistrationTransit>(message);
             if (inputModel == null) { throw new Exception("The input model cannot be null."); }
 
-            var username = UsernameGenerationService.GenerateUsername(inputModel.FullName, inputModel.Semester);
+            inputModel.Username = UsernameGenerationService.GenerateUsername(inputModel.FullName, inputModel.Semester);
 
-            if (_dbContext.Users.Any(u => u.UserName == username)) { throw new Exception($"The username '{username}' is already taken."); }
+            if (_dbContext.Users.Any(u => u.UserName == inputModel.Username)) { throw new Exception($"The username '{inputModel.Username}' is already taken."); }
 
             _dbContext.Users.Add(new User
             {
                 Email = inputModel.Email,
-                UserName = username,
+                UserName = inputModel.Username,
                 FullName = inputModel.FullName,
                 Address = inputModel.Address,
                 City = inputModel.City,
