@@ -23,11 +23,16 @@ channel.queue_bind(exchange=exchange, queue=queue, routing_key='student-registra
 
 def send_invoice(ch, method, properties, data):
     parsed_msg = json.loads(data)
-    response = post('{base_url}/200', {
+    body = {
         'kennitala': parsed_msg['kennitala'],
         'price': parsed_msg['price']
-    })
+    }
+    response = post(f'{base_url}/200', body)
+    print(response.status_code)
     print(response.content)
+    print(body)
+
+    ch.basic_ack(delivery_tag = method.delivery_tag)
 
 channel.basic_consume(on_message_callback=send_invoice,
                       queue=queue,
