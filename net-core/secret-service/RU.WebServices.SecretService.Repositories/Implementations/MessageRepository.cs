@@ -48,7 +48,7 @@ namespace RU.WebServices.SecretService.Repositories.Implementations
             var entity = new Message
             {
                 EncryptedMessage = message.Message,
-                CreatedOn = DateTime.Now,
+                CreatedOn = DateTime.UtcNow,
                 UserToId = message.UserToId,
                 UserFromId = userFrom.Id
             };
