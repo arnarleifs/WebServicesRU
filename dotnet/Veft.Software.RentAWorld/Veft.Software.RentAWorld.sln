@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Veft.Software.RentAWorld.Api", "Veft.Software.RentAWorld.Api\Veft.Software.RentAWorld.Api.csproj", "{5083C390-C2F6-4C9E-BD5F-7B97EA647CC4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Veft.Software.RentAWorld.Api", "Veft.Software.RentAWorld.Api\Veft.Software.RentAWorld.Api.csproj", "{FA3B8272-1E6A-4DAE-98BB-D19CB7CDCD97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Veft.Software.RentAWorld.Models", "Veft.Software.RentAWorld.Models\Veft.Software.RentAWorld.Models.csproj", "{934E3233-C775-4BF0-83BB-520605BF407F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Veft.Software.RentAWorld.Models", "Veft.Software.RentAWorld.Models\Veft.Software.RentAWorld.Models.csproj", "{B6AD2031-C3DA-48BF-865B-D673F7563FF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Veft.Software.RentAWorld.Repositories", "Veft.Software.RentAWorld.Repositories\Veft.Software.RentAWorld.Repositories.csproj", "{CBA14BE8-AFF0-4283-9B28-CCD524FEE1FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Veft.Software.RentAWorld.Repositories", "Veft.Software.RentAWorld.Repositories\Veft.Software.RentAWorld.Repositories.csproj", "{63BCD40B-720C-43EB-8DEE-63EF079FB59E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Veft.Software.RentAWorld.Services", "Veft.Software.RentAWorld.Services\Veft.Software.RentAWorld.Services.csproj", "{B8C60864-6350-416F-88A8-C46E923404A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Veft.Software.RentAWorld.Services", "Veft.Software.RentAWorld.Services\Veft.Software.RentAWorld.Services.csproj", "{B56FB194-A1BC-4F63-9B47-71DC6A75D797}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,21 +20,21 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5083C390-C2F6-4C9E-BD5F-7B97EA647CC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5083C390-C2F6-4C9E-BD5F-7B97EA647CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5083C390-C2F6-4C9E-BD5F-7B97EA647CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5083C390-C2F6-4C9E-BD5F-7B97EA647CC4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{934E3233-C775-4BF0-83BB-520605BF407F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{934E3233-C775-4BF0-83BB-520605BF407F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{934E3233-C775-4BF0-83BB-520605BF407F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{934E3233-C775-4BF0-83BB-520605BF407F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CBA14BE8-AFF0-4283-9B28-CCD524FEE1FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CBA14BE8-AFF0-4283-9B28-CCD524FEE1FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CBA14BE8-AFF0-4283-9B28-CCD524FEE1FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CBA14BE8-AFF0-4283-9B28-CCD524FEE1FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B8C60864-6350-416F-88A8-C46E923404A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8C60864-6350-416F-88A8-C46E923404A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8C60864-6350-416F-88A8-C46E923404A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8C60864-6350-416F-88A8-C46E923404A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA3B8272-1E6A-4DAE-98BB-D19CB7CDCD97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA3B8272-1E6A-4DAE-98BB-D19CB7CDCD97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA3B8272-1E6A-4DAE-98BB-D19CB7CDCD97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA3B8272-1E6A-4DAE-98BB-D19CB7CDCD97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6AD2031-C3DA-48BF-865B-D673F7563FF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6AD2031-C3DA-48BF-865B-D673F7563FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6AD2031-C3DA-48BF-865B-D673F7563FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6AD2031-C3DA-48BF-865B-D673F7563FF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63BCD40B-720C-43EB-8DEE-63EF079FB59E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63BCD40B-720C-43EB-8DEE-63EF079FB59E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63BCD40B-720C-43EB-8DEE-63EF079FB59E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63BCD40B-720C-43EB-8DEE-63EF079FB59E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B56FB194-A1BC-4F63-9B47-71DC6A75D797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B56FB194-A1BC-4F63-9B47-71DC6A75D797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B56FB194-A1BC-4F63-9B47-71DC6A75D797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B56FB194-A1BC-4F63-9B47-71DC6A75D797}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
