@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace pokemon_image_api.Controllers
 {
@@ -7,8 +6,7 @@ namespace pokemon_image_api.Controllers
     [ApiController]
     public class PokemonController : ControllerBase
     {
-        [HttpGet]
-        [Route("{pokemonId}/image")]
+        [HttpGet("{pokemonId}/image")]
         public IActionResult GetImageForPokemon(int pokemonId)
         {
             var b = System.IO.File.ReadAllBytes($"./sprites/{pokemonId}.png");
