@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RU.WebServices.SecretService.Models.InputModels;
@@ -43,9 +42,9 @@ namespace RU.WebServices.SecretService.API.Controllers
 
         [HttpGet]
         [Route("signout")]
-        public IActionResult SignOut()
+        public new IActionResult SignOut()
         {
-            int.TryParse(User.Claims.FirstOrDefault(c => c.Type == "tokenId").Value, out var tokenId);
+            int.TryParse(User.Claims.FirstOrDefault(c => c.Type == "tokenId")?.Value, out var tokenId);
             _accountService.SignOut(tokenId);
             return NoContent();
         }

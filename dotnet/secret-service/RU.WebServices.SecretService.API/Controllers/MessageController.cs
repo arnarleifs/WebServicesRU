@@ -21,7 +21,7 @@ namespace RU.WebServices.SecretService.API.Controllers
         [Route("")]
         public IActionResult StoreMessage([FromBody] MessageInputModel message)
         {
-            var newMessageId = _messageService.StoreMessage(message, User.Identity.Name);
+            var newMessageId = _messageService.StoreMessage(message, User.Identity?.Name);
             return CreatedAtRoute("ReadMessage", new { messageId = newMessageId }, null);
         }
 
@@ -29,14 +29,14 @@ namespace RU.WebServices.SecretService.API.Controllers
         [Route("{messageId}", Name = "ReadMessage")]
         public IActionResult ReadMessage(int messageId)
         {
-            return Ok(_messageService.ReadMessage(messageId, User.Identity.Name));
+            return Ok(_messageService.ReadMessage(messageId, User.Identity?.Name));
         }
 
         [HttpGet]
         [Route("")]
         public IActionResult ListMessages()
         {
-            return Ok(_messageService.ListMessages(User.Identity.Name));
+            return Ok(_messageService.ListMessages(User.Identity?.Name));
         }
     }
 }
