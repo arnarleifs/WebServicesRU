@@ -1,4 +1,4 @@
-const DataProvider = require('./data');
+const DataProvider = require("./data");
 
 // DataProvider.Movie.find({}, function(err, movies) {
 //   //console.log(movies);
@@ -6,7 +6,6 @@ const DataProvider = require('./data');
 //     //console.log(actors);
 //   });
 // });
-
 
 // DataProvider.Movie.findById('5bb72e2efb6fc038040aaac1', function(err, movie) {
 //   console.log(movie);
@@ -16,12 +15,17 @@ const DataProvider = require('./data');
 //   });
 // });
 
-DataProvider.Movie.create({
-  title: 'Charlie and the Chocolate Factory',
-  publishYear: 2005,
-  category: 'HORROR',
-  director: 'Tim Burton'
-}, function(err, movie) {
-  if (err) { throw new Error(err); }
-  console.log(movie);
-});
+DataProvider.Movie.create(
+  {
+    title: "Charlie and the Chocolate Factory",
+    publishYear: 2005,
+    category: "HORROR",
+    director: "Tim Burton",
+  },
+  function (err, movie) {
+    if (err) {
+      throw new Error(err);
+    }
+    console.log(movie);
+  }
+);

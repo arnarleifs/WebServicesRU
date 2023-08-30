@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require("fs");
 
 // fs.access('doesExist', fs.constants.F_OK, function(err) {
 //   if (err) {
@@ -10,19 +10,18 @@ const fs = require('fs');
 //   }
 // });
 
+const heManFile = fs.createWriteStream("heman.txt");
+heManFile.write("By the power of Grayskull! I have the power!");
 
-const heManFile = fs.createWriteStream('heman.txt');
-heManFile.write('By the power of Grayskull! I have the power!');
-
-fs.readFile('heman.txt', { encoding: 'utf8' }, function(err, data) {
+fs.readFile("heman.txt", { encoding: "utf8" }, function (err, data) {
   if (err) {
     throw new Error(err);
   }
   console.log(data);
-  fs.unlink('heman.txt', function(err) {
+  fs.unlink("heman.txt", function (err) {
     if (err) {
       throw new Error(err);
     }
-    console.log('It was successfully deleted!');
+    console.log("It was successfully deleted!");
   });
 });

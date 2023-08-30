@@ -8,7 +8,7 @@ namespace NetCoreExamples.WebApi.Controllers
 {
     [Analytics]
     [Route("api/customers")]
-    public class CustomerController : Controller
+    public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;
 

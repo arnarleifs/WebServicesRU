@@ -2,14 +2,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NetCoreExamples.Models\NetCoreExamples.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="automapper" Version="7.0.1" />
+    <ProjectReference Include="..\NetCoreExamples.Repositories\NetCoreExamples.Repositories.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
 </Project>
