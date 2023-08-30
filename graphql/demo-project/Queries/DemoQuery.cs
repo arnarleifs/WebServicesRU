@@ -10,23 +10,19 @@ public class DemoQuery : ObjectGraphType
     public DemoQuery(DemoData data)
     {
         Field<IntGraphType>(
-            "totalPhotos",
-            resolve: context => data.Photos.Count
-        );
+            "totalPhotos"
+        ).Resolve(context => data.Photos.Count);
 
         Field<ListGraphType<PhotoType>>(
-            "allPhotos",
-            resolve: context => data.Photos
-        );
+            "allPhotos"
+        ).Resolve(context => data.Photos);
 
         Field<ListGraphType<UserType>>(
-            "allUsers",
-            resolve: context => data.Users
-        );
+            "allUsers"
+        ).Resolve(context => data.Users);
 
         Field<ListGraphType<TransactionType>>(
-            "allTransactions",
-            resolve: context => data.Transactions
-        );
+            "allTransactions"
+        ).Resolve(context => data.Transactions);
     }
 }

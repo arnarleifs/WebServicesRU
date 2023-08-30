@@ -11,12 +11,10 @@ public class DemoMutations : ObjectGraphType
 {
     public DemoMutations(DemoData data)
     {
-        Field<PhotoType>(
-            "postPhoto",
-            arguments: new QueryArguments(
+        Field<PhotoType>("postPhoto")
+            .Arguments(new QueryArguments(
                 new QueryArgument<NonNullGraphType<PhotoInputType>> { Name = "photo" }
-            ),
-            resolve: context =>
+            )).Resolve(context =>
             {
                 var input = context.GetArgument<PhotoInput>("photo");
 

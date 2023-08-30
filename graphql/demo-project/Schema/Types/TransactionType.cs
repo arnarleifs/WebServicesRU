@@ -9,9 +9,6 @@ public sealed class TransactionType : ObjectGraphType<Transaction>
     public TransactionType()
     {
         Field(x => x.Id).Description("The id of the transaction");
-        Field<IskCurrency>(
-            "amount",
-            description: "The amount of the transaction",
-            resolve: context => context.Source.Amount);
+        Field<IskCurrency>("amount").Description("The amount of the transaction").Resolve(context => context.Source.Amount);
     }
 }
