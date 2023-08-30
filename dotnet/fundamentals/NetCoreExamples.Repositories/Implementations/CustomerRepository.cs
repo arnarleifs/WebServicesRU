@@ -12,23 +12,25 @@ namespace NetCoreExamples.Repositories.Implementations
     public class CustomerRepository : ICustomerRepository
     {
         private readonly IDataProvider _dataProvider;
+        private readonly IMapper _mapper;
 
-        public CustomerRepository(IDataProvider dataProvider)
+        public CustomerRepository(IDataProvider dataProvider, IMapper mapper)
         {
             _dataProvider = dataProvider;
+            _mapper = mapper;
         }
 
         public int CreateNewCustomer(CustomerInputModel customer)
         {
             var customers = _dataProvider.GetCustomers();
-            var entity = Mapper.Map<Customer>(customer);
+            var entity = _mapper.Map<Customer>(customer);
             entity.Id = customers.Count + 1;
             customers.Add(entity);
 
             return entity.Id;
         }
 
-        public CustomerDto GetCustomerById(int id) => Mapper.Map<CustomerDto>(_dataProvider.GetCustomers().FirstOrDefault(c => c.Id == id));
+        public CustomerDto GetCustomerById(int id) => _mapper.Map<CustomerDto>(_dataProvider.GetCustomers().FirstOrDefault(c => c.Id == id));
 
         public IEnumerable<CustomerDto> GetAllCustomers()
         {
