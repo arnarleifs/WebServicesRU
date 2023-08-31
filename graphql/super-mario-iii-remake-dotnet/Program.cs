@@ -11,9 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddGraphQL(qlBuilder =>
 {
-    qlBuilder.AddHttpMiddleware<ISchema>();
     qlBuilder.AddSystemTextJson();
-    qlBuilder.AddErrorInfoProvider(opt => opt.ExposeExceptionStackTrace = true);
+    qlBuilder.AddErrorInfoProvider(opt => opt.ExposeExceptionDetails = true);
     qlBuilder.AddSchema<SMBSchema>();
     qlBuilder.AddGraphTypes(typeof(SMBSchema).Assembly);
 });

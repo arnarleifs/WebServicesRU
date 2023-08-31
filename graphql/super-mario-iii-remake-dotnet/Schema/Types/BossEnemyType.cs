@@ -21,21 +21,16 @@ public sealed class BossEnemyType : ObjectGraphType<BossEnemy>
         Field(x => x.Name).Description("The name of the boss.");
         Field(x => x.Health).Description("The total health of the boss. (HP)");
 
-        FieldAsync<LevelType>(
-            "appearsInLevel",
-            description: "The level this boss appears in.",
-            resolve: async context =>
-            {
-                var boss = data.Bosses.FirstOrDefault(b => b.Id == context.Source.Id);
-                var levels = await data.GetLevels();
+        Field<LevelType>("appearsInLevel").Description("The level this boss appears in.").ResolveAsync(async context =>
+        {
+            var boss = data.Bosses.FirstOrDefault(b => b.Id == context.Source.Id);
+            var levels = await data.GetLevels();
 
-                return levels.FirstOrDefault(l => l.Id == boss?.AppearsInLevelId);
-            });
+            return levels.FirstOrDefault(l => l.Id == boss?.AppearsInLevelId);
+        });
 
         Field<ListGraphType<LevelType>>(
-            "unlocksLevels",
-            description: "The levels this boss unlocks when beaten.",
-            resolve: context =>
+            "unlocksLevels").Description("The levels this boss unlocks when beaten.").Resolve(context =>
             {
                 var levels = data.UnlockLevels;
                 return levels.Where(l => l.EnemyId == context.Source.Id).ToList().ConvertAll(l => new Level

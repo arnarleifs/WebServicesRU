@@ -10,13 +10,10 @@ public class SMBQuery : ObjectGraphType
 {
     public SMBQuery(SMBData data)
     {
-        Field<ListGraphType<CharacterType>>(
-            "allCharacters",
-            resolve: context => data.Characters
-        );
-        Field<ListGraphType<EnemyInterface>>(
-            "allEnemies",
-            resolve: context =>
+        Field<ListGraphType<CharacterType>>("allCharacters").Resolve(context => data.Characters);
+
+        Field<ListGraphType<EnemyInterface>>("allEnemies")
+            .Resolve(context =>
             {
                 var bosses = data.Bosses.ConvertAll(input => new BossEnemy
                 {
@@ -28,12 +25,12 @@ public class SMBQuery : ObjectGraphType
 
                 return bosses.Concat(commonEnemies).OrderBy(n => n.Name);
             });
-        Field<EnemyInterface>(
-            "enemy",
-            arguments: new QueryArguments(
+
+        Field<EnemyInterface>("enemy")
+            .Arguments(new QueryArguments(
                 new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "id", Description = "Id of the enemy" }
-            ),
-            resolve: context =>
+            ))
+            .Resolve(context =>
             {
                 var id = context.GetArgument<string>("id");
 
@@ -50,8 +47,7 @@ public class SMBQuery : ObjectGraphType
 
                 return enemy;
             });
-        FieldAsync<ListGraphType<LevelType>>(
-            "allLevels",
-            resolve: async context => await data.GetLevels());
+
+        Field<ListGraphType<LevelType>>("allLevels").ResolveAsync(async context => await data.GetLevels());
     }
 }

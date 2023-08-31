@@ -1,4 +1,4 @@
-const enemy = require('./enemy');
+const enemy = require("./enemy");
 
 module.exports = `
   ${enemy}

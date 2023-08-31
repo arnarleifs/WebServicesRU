@@ -1,5 +1,5 @@
 {
-    "jwt": {
-        "signKey": "abc12345"
-    }
+  "jwt": {
+    "signKey": "abc12345"
+  }
 }

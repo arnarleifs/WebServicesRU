@@ -7,7 +7,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/super-mario-iii-remake.csproj",
+        "${workspaceFolder}/super-mario-iii-remake.sln",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -19,7 +19,7 @@
       "type": "process",
       "args": [
         "publish",
-        "${workspaceFolder}/super-mario-iii-remake.csproj",
+        "${workspaceFolder}/super-mario-iii-remake.sln",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -33,7 +33,7 @@
         "watch",
         "run",
         "--project",
-        "${workspaceFolder}/super-mario-iii-remake.csproj"
+        "${workspaceFolder}/super-mario-iii-remake.sln"
       ],
       "problemMatcher": "$msCompile"
     }

@@ -1,7 +1,7 @@
-const db = require('../data/db');
+const db = require("../data/db");
 
 module.exports = {
   queries: {
-    allLevels: () => db.levels()
-  }
+    allLevels: () => db.levels(),
+  },
 };

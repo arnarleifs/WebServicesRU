@@ -1,15 +1,15 @@
-const characterResolver = require('./characterResolver');
-const enemyResolver = require('./enemyResolver');
-const levelResolver = require('./levelResolver');
+const characterResolver = require("./characterResolver");
+const enemyResolver = require("./enemyResolver");
+const levelResolver = require("./levelResolver");
 
 module.exports = {
   Query: {
     ...characterResolver.queries,
     ...enemyResolver.queries,
-    ...levelResolver.queries
+    ...levelResolver.queries,
   },
   Mutation: {
-    ...characterResolver.mutations
+    ...characterResolver.mutations,
   },
-  ...enemyResolver.types
+  ...enemyResolver.types,
 };

@@ -1,4 +1,4 @@
-const enemySize = require('./enemySize');
+const enemySize = require("./enemySize");
 
 module.exports = `
   ${enemySize}

@@ -10,12 +10,11 @@ public class SMBMutations : ObjectGraphType
 {
     public SMBMutations(SMBData data)
     {
-        Field<CharacterType>(
-            "createCharacter",
-            arguments: new QueryArguments(
+        Field<CharacterType>("createCharacter")
+            .Arguments(new QueryArguments(
                 new QueryArgument<NonNullGraphType<CharacterInputType>> { Name = "character" }
-            ),
-            resolve: context =>
+            ))
+            .Resolve(context =>
             {
                 var character = context.GetArgument<CharacterInput>("character");
                 var newCharacter = new Character
@@ -28,13 +27,13 @@ public class SMBMutations : ObjectGraphType
 
                 return newCharacter;
             });
-        Field<CharacterType>(
-            "updateCharacter",
-            arguments: new QueryArguments(
-                new QueryArgument<IdGraphType> {Name = "id"},
-                new QueryArgument<StringGraphType> {Name = "description"}
-            ),
-            resolve: context =>
+
+        Field<CharacterType>("updateCharacter")
+            .Arguments(new QueryArguments(
+                new QueryArgument<IdGraphType> { Name = "id" },
+                new QueryArgument<StringGraphType> { Name = "description" }
+            ))
+            .Resolve(context =>
             {
                 var id = context.GetArgument<string>("id");
                 var description = context.GetArgument<string>("description");
@@ -56,21 +55,17 @@ public class SMBMutations : ObjectGraphType
                 }).ToList();
 
                 return data.Characters.FirstOrDefault(c => c.Id == id);
-            }
-        );
-        Field<BooleanGraphType>(
-            "deleteCharacter",
-            arguments: new QueryArguments(
+            });
+
+        Field<BooleanGraphType>("deleteCharacter").Arguments(new QueryArguments(
                 new QueryArgument<IdGraphType> { Name = "id" }
-            ),
-            resolve: context =>
+            )).Resolve(context =>
             {
                 var id = context.GetArgument<string>("id");
 
                 data.Characters = data.Characters.Where(c => c.Id != id).ToList();
 
                 return true;
-            }
-        );
+            });
     }
 }
