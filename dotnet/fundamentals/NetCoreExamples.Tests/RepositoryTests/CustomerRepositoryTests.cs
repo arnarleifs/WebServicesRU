@@ -1,43 +1,42 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using FizzWare.NBuilder;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NetCoreExamples.Models.Entities;
 using NetCoreExamples.Repositories.Implementations;
 using NetCoreExamples.Repositories.Interfaces;
-using NetCoreExamples.Tests.Mocks;
 using AutoMapper;
+using Bogus;
 
 namespace NetCoreExamples.Tests.RepositoryTests
 {
     [TestClass]
     public class CustomerRepositoryTests
     {
-        private ICustomerRepository _customerRepository;
-        private readonly Mock<IDataProvider> _dataProviderMock = new Mock<IDataProvider>();
-        IMapper _mapper;
-        MapperConfiguration _config;
-        private List<Customer> _customers = Builder<Customer>.CreateListOfSize(3).Build().ToList();
+        private readonly ICustomerRepository _customerRepository;
 
-        [TestInitialize]
-        public void Initialize()
+        public CustomerRepositoryTests()
         {
-            _config = new MapperConfiguration(cfg => cfg.AddMaps(new[] {
-                "NetCoreExamples.WebApi"
-            }));
+            var customerFaker = new Faker<Customer>()
+              .RuleFor(c => c.Id, f => f.IndexFaker)
+             .RuleFor(c => c.Name, f => f.Person.FullName)
+             .RuleFor(c => c.Email, f => f.Person.Email)
+             .RuleFor(c => c.Bio, f => f.Lorem.Sentence());
 
-            _mapper = _config.CreateMapper();
-            _dataProviderMock.Setup(d => d.GetCustomers()).Returns(_customers);
-            _customerRepository = new CustomerRepository(_dataProviderMock.Object, _mapper);
+            var mapperConfig = new MapperConfiguration(expression => {});
+            var mapper = mapperConfig.CreateMapper();
+
+            var customers = customerFaker.Generate(20);
+            var dataProviderMock = new Mock<IDataProvider>();
+
+            dataProviderMock.Setup(c => c.GetCustomers()).Returns(customers);
+            _customerRepository = new CustomerRepository(dataProviderMock.Object, mapper);
         }
 
         [TestMethod]
-        public void GetAllCustomers_ShouldReturnAListOfLengthFive()
+        public void GetAllCustomers_ShouldReturnAListOfLength20()
         {
             var customers = _customerRepository.GetAllCustomers();
-            Assert.AreEqual(3, customers.Count());
+            Assert.AreEqual(20, customers.Count());
         }
     }
 }

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using NetCoreExamples.Models.InputModels;
-using NetCoreExamples.Services.Implementations;
 using NetCoreExamples.Services.Interfaces;
 using NetCoreExamples.WebApi.Attributes;
 
