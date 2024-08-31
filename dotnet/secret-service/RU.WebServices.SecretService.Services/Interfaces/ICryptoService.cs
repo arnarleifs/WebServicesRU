@@ -1,8 +1,7 @@
-namespace RU.WebServices.SecretService.Services.Interfaces
+namespace RU.WebServices.SecretService.Services.Interfaces;
+
+public interface ICryptoService
 {
-    public interface ICryptoService
-    {
-        string Decrypt(string message);
-        string Encrypt(string message);
-    }
+    string Decrypt(string message);
+    string Encrypt(string message);
 }
