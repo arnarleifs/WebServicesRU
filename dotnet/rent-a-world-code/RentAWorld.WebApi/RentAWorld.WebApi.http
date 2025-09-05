@@ -1,0 +1,6 @@
+@RentAWorld.WebApi_HostAddress = http://localhost:5223
+
+GET {{RentAWorld.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
