@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StargateUniversity.Software.API", "StargateUniversity.Software.API\StargateUniversity.Software.API.csproj", "{98EDDADE-8A74-449F-90D2-7DBA8C25A168}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StargateUniversity.Software.Consumers", "StargateUniversity.Software.Consumers\StargateUniversity.Software.Consumers.csproj", "{94E37B2B-F11F-4602-986C-13087D433201}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StargateUniversity.Software.Contracts", "StargateUniversity.Software.Contracts\StargateUniversity.Software.Contracts.csproj", "{F6064DD5-3E95-4DBA-9E08-58DECD43D6B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StargateUniversity.Software.Shared", "StargateUniversity.Software.Shared\StargateUniversity.Software.Shared.csproj", "{9D73B158-F626-4C65-8952-66AA50808791}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StargateUniversity.Software.Services", "StargateUniversity.Software.Services\StargateUniversity.Software.Services.csproj", "{EEFEE8D6-BA97-49BB-A70A-17067152EEC7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{98EDDADE-8A74-449F-90D2-7DBA8C25A168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98EDDADE-8A74-449F-90D2-7DBA8C25A168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98EDDADE-8A74-449F-90D2-7DBA8C25A168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98EDDADE-8A74-449F-90D2-7DBA8C25A168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94E37B2B-F11F-4602-986C-13087D433201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94E37B2B-F11F-4602-986C-13087D433201}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94E37B2B-F11F-4602-986C-13087D433201}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94E37B2B-F11F-4602-986C-13087D433201}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6064DD5-3E95-4DBA-9E08-58DECD43D6B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6064DD5-3E95-4DBA-9E08-58DECD43D6B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6064DD5-3E95-4DBA-9E08-58DECD43D6B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6064DD5-3E95-4DBA-9E08-58DECD43D6B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D73B158-F626-4C65-8952-66AA50808791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D73B158-F626-4C65-8952-66AA50808791}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D73B158-F626-4C65-8952-66AA50808791}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D73B158-F626-4C65-8952-66AA50808791}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEFEE8D6-BA97-49BB-A70A-17067152EEC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEFEE8D6-BA97-49BB-A70A-17067152EEC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEFEE8D6-BA97-49BB-A70A-17067152EEC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEFEE8D6-BA97-49BB-A70A-17067152EEC7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
