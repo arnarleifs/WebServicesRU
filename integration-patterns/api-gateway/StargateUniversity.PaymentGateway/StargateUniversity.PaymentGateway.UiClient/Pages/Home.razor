@@ -1,0 +1,205 @@
+﻿@page "/"
+@using StargateUniversity.PaymentGateway.Models.InputModels
+@inject HttpClient Http
+
+<PageTitle>Create Payment Link</PageTitle>
+
+<div class="container">
+    <div class="page-header">
+        <h1>Create Payment Link</h1>
+        <p class="subtitle">Generate a secure payment link for your customers</p>
+    </div>
+
+    <EditForm Model="@_paymentLink" OnValidSubmit="@HandleSubmit" class="payment-form">
+        <DataAnnotationsValidator />
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Payment Details</h2>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Amount</label>
+                        <InputNumber @bind-Value="_paymentLink.Amount" class="form-control" placeholder="0.00" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Currency</label>
+                        <InputText @bind-Value="_paymentLink.Currency" class="form-control" placeholder="ISK" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Line Items</h2>
+                <button type="button" class="btn btn-secondary btn-sm" @onclick="AddItem">
+                    + Add Item
+                </button>
+            </div>
+            <div class="card-body">
+                @if (_items.Count == 0)
+                {
+                    <p class="empty-state">No items added yet. Click "Add Item" to get started.</p>
+                }
+                else
+                {
+                    @foreach (var (item, index) in _items.Select((item, i) => (item, i)))
+                    {
+                        <div class="item-card">
+                            <div class="item-header">
+                                <span class="item-number">Item @(index + 1)</span>
+                                @if (_items.Count > 1)
+                                {
+                                    <button type="button" class="btn-remove" @onclick="() => RemoveItem(index)">
+                                        × Remove
+                                    </button>
+                                }
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group form-group-full">
+                                    <label>Product Name</label>
+                                    <InputText @bind-Value="item.ProductName" class="form-control" placeholder="Enter product name" />
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Quantity</label>
+                                    <InputNumber @bind-Value="item.Quantity" class="form-control" placeholder="1" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Unit Price</label>
+                                    <InputNumber @bind-Value="item.UnitPrice" class="form-control" placeholder="0.00" />
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Amount (Before Discount)</label>
+                                    <InputNumber @bind-Value="item.AmountWithoutDiscount" class="form-control" placeholder="0.00" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Final Amount</label>
+                                    <InputNumber @bind-Value="item.Amount" class="form-control" placeholder="0.00" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <ValidationSummary class="validation-summary" />
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary" disabled="@_isLoading">
+                @if (_isLoading)
+                {
+                    <span class="spinner"></span>
+                    <span>Generating...</span>
+                }
+                else
+                {
+                    <span>Generate Payment Link</span>
+                }
+            </button>
+        </div>
+    </EditForm>
+
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div class="alert alert-error">
+            <strong>Error:</strong> @_errorMessage
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(_paymentLinkUrl))
+    {
+        <div class="alert alert-success">
+            <h3>✓ Payment Link Generated!</h3>
+            <div class="link-display">
+                <a href="@_paymentLinkUrl" target="_blank" class="payment-link">@_paymentLinkUrl</a>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+
+    private readonly PaymentLinkInputModel _paymentLink = new()
+    {
+        Currency = "ISK",
+        Amount = 0
+    };
+
+    private readonly List<PaymentLinkItemInputModel> _items = [];
+    private bool _isLoading = false;
+    private string? _errorMessage;
+    private string? _paymentLinkUrl;
+
+    protected override void OnInitialized()
+    {
+        AddItem();
+    }
+
+    private void AddItem()
+    {
+        _items.Add(new PaymentLinkItemInputModel
+        {
+            ProductName = "",
+            Quantity = 1,
+            UnitPrice = 0,
+            AmountWithoutDiscount = 0,
+            Amount = 0
+        });
+    }
+
+    private void RemoveItem(int index)
+    {
+        if (_items.Count > 1)
+        {
+            _items.RemoveAt(index);
+        }
+    }
+
+    private async Task HandleSubmit()
+    {
+        _isLoading = true;
+        _errorMessage = null;
+        _paymentLinkUrl = null;
+
+        try
+        {
+            _paymentLink.Items = _items;
+
+            var response = await Http.PostAsJsonAsync(
+                "PaymentGateway/payment-links",
+                _paymentLink);
+
+            if (response.IsSuccessStatusCode)
+            {
+                _paymentLinkUrl = await response.Content.ReadAsStringAsync();
+                _paymentLinkUrl = _paymentLinkUrl.Trim('"');
+            }
+            else
+            {
+                _errorMessage = $"Error: {response.StatusCode}";
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"Failed to generate payment link: {ex.Message}";
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+}
