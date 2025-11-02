@@ -1,7 +1,244 @@
-﻿@page "/"
+﻿@page "/payment-link/{identifier}"
+@using PaymentProvider.Models.Dtos
+@using PaymentProvider.Models.InputModels
+@inject HttpClient Http
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Payment</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="payment-container">
+    @if (isLoading)
+    {
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading payment details...</p>
+        </div>
+    }
+    else if (paymentLink == null)
+    {
+        <div class="error-card">
+            <div class="error-icon">❌</div>
+            <h2>Payment Link Not Found</h2>
+            <p>This payment link is invalid or has expired.</p>
+        </div>
+    }
+    else if (paymentLink.Processed)
+    {
+        <div class="success-card">
+            <div class="success-icon">✅</div>
+            <h2>Already Processed</h2>
+            <p>This payment has already been completed.</p>
+        </div>
+    }
+    else
+    {
+        <div class="payment-card">
+            <div class="payment-header">
+                <h1>Complete Your Payment</h1>
+                <p class="merchant-name">@paymentLink.Customer.Name</p>
+            </div>
 
-Welcome to your new app.
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div class="items-list">
+                    @foreach (var item in paymentLink.Items)
+                    {
+                        <div class="item-row">
+                            <div class="item-details">
+                                <span class="item-name">@item.ProductName</span>
+                                <span class="item-quantity">Qty: @item.Quantity</span>
+                            </div>
+                            <div class="item-prices">
+                                @if (item.AmountWithoutDiscount > item.Amount)
+                                {
+                                    <span class="original-price">@item.AmountWithoutDiscount.ToString("N2") kr.</span>
+                                }
+                                <span class="item-price">@item.Amount.ToString("N2") kr.</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="total-row">
+                    <span class="total-label">Total Amount</span>
+                    <span class="total-amount">@GetTotalAmount().ToString("N2") kr.</span>
+                </div>
+            </div>
+
+            <EditForm Model="@paymentInput" OnValidSubmit="@HandleSubmit" class="payment-form">
+                <DataAnnotationsValidator/>
+
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <InputText id="cardNumber"
+                               @bind-Value="paymentInput.CreditCardNumber"
+                               placeholder="1234 5678 9012 3456"
+                               maxlength="19"
+                               @oninput="FormatCardNumber"/>
+                    <ValidationMessage For="@(() => paymentInput.CreditCardNumber)"/>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expiry">Expiry Date</label>
+                        <InputText id="expiry"
+                                   @bind-Value="paymentInput.Expiry"
+                                   placeholder="MM/YY"
+                                   maxlength="5"
+                                   @oninput="FormatExpiry"/>
+                        <ValidationMessage For="@(() => paymentInput.Expiry)"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cvc">CVC</label>
+                        <InputText id="cvc"
+                                   @bind-Value="paymentInput.Cvc"
+                                   placeholder="123"
+                                   maxlength="4"
+                                   type="password"/>
+                        <ValidationMessage For="@(() => paymentInput.Cvc)"/>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button" disabled="@isProcessing">
+                    @if (isProcessing)
+                    {
+                        <span class="button-spinner"></span>
+                        <span>Processing...</span>
+                    }
+                    else
+                    {
+                        <span>Pay @GetTotalAmount().ToString("N2") kr.</span>
+                    }
+                </button>
+            </EditForm>
+
+            <div class="security-badge">
+                <span class="lock-icon">🔒</span>
+                <span>Secure payment powered by PaymentProvider</span>
+            </div>
+        </div>
+    }
+</div>
+
+@if (showToast)
+{
+    <div class="toast @toastType">
+        <span class="toast-icon">@(toastType == "success" ? "✅" : "❌")</span>
+        <span class="toast-message">@toastMessage</span>
+    </div>
+}
+
+@code {
+    [Parameter] public string Identifier { get; set; } = null!;
+
+    private PaymentLinkDto? paymentLink;
+    private PaymentLinkProcessInputModel paymentInput = new();
+    private bool isLoading = true;
+    private bool isProcessing = false;
+    private bool showToast = false;
+    private string toastMessage = "";
+    private string toastType = "success";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPaymentLink();
+    }
+
+    private async Task LoadPaymentLink()
+    {
+        try
+        {
+            isLoading = true;
+            var response = await Http.GetAsync($"PaymentProvider/payment-links/{Identifier}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                paymentLink = await response.Content.ReadFromJsonAsync<PaymentLinkDto>();
+            }
+        }
+        catch (Exception ex)
+        {
+            ShowToast($"Error loading payment: {ex.Message}", "error");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task HandleSubmit()
+    {
+        try
+        {
+            isProcessing = true;
+            paymentInput.PaymentLinkIdentifier = Identifier;
+
+            var response = await Http.PostAsJsonAsync("PaymentProvider/payment-links/process", paymentInput);
+
+            if (response.IsSuccessStatusCode)
+            {
+                ShowToast("Payment processed successfully!", "success");
+                await Task.Delay(2000);
+
+                // Mark as processed and show success state
+                if (paymentLink != null)
+                {
+                    paymentLink.Processed = true;
+                }
+            }
+            else
+            {
+                ShowToast("Payment failed. Please check your details and try again.", "error");
+            }
+        }
+        catch (Exception ex)
+        {
+            ShowToast($"Error processing payment: {ex.Message}", "error");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private void FormatCardNumber(ChangeEventArgs e)
+    {
+        var value = e.Value?.ToString()?.Replace(" ", "") ?? "";
+        if (value.Length > 0)
+        {
+            value = string.Join(" ", System.Text.RegularExpressions.Regex.Split(value, "(.{4})").Where(s => !string.IsNullOrEmpty(s)));
+        }
+
+        paymentInput.CreditCardNumber = value;
+    }
+
+    private void FormatExpiry(ChangeEventArgs e)
+    {
+        var value = e.Value?.ToString()?.Replace("/", "") ?? "";
+        if (value.Length >= 2)
+        {
+            value = value.Insert(2, "/");
+        }
+
+        paymentInput.Expiry = value;
+    }
+
+    private decimal GetTotalAmount()
+    {
+        return paymentLink?.Items.Sum(i => i.Amount) ?? 0;
+    }
+
+    private void ShowToast(string message, string type)
+    {
+        toastMessage = message;
+        toastType = type;
+        showToast = true;
+        StateHasChanged();
+
+        Task.Delay(4000).ContinueWith(_ =>
+        {
+            showToast = false;
+            InvokeAsync(StateHasChanged);
+        });
+    }
+
+}

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using PaymentProvider.Api.Handlers;
 using PaymentProvider.DataAccessLayer.Services;
+using PaymentProvider.Models.Dtos;
 using PaymentProvider.Models.InputModels;
 
 namespace PaymentProvider.Api.Controllers;
@@ -8,11 +10,18 @@ namespace PaymentProvider.Api.Controllers;
 [Route("[controller]")]
 public class PaymentGatewayController(PaymentLinksService paymentLinksService) : ControllerBase
 {
+    [ApiKeyAuthorize]
     [HttpPost("payment-links")]
-    public async Task<ActionResult> CreatePaymentLink([FromBody] PaymentLinkInputModel inputModel)
+    public async Task<ActionResult<PaymentLinkResponseDto>> CreatePaymentLink(
+        [FromBody] PaymentLinkInputModel inputModel)
     {
-        await paymentLinksService.CreatePaymentLinkAsync(inputModel);
+        var customerIdClaim = User.FindFirst("CustomerId")?.Value;
+        if (!int.TryParse(customerIdClaim, out var customerId))
+        {
+            return Unauthorized("Customer id could not be parsed");
+        }
 
-        return Created();
+        var paymentLinkResponse = await paymentLinksService.CreatePaymentLinkAsync(inputModel, customerId);
+        return Ok(paymentLinkResponse);
     }
 }

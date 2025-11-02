@@ -11,4 +11,8 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.4" PrivateAssets="all"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PaymentProvider.Models\PaymentProvider.Models.csproj" />
+    </ItemGroup>
+
 </Project>

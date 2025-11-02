@@ -10,7 +10,7 @@ namespace PaymentProvider.Api.Controllers;
 public class PaymentProviderController(PaymentLinksService paymentLinksService) : ControllerBase
 {
     [HttpGet("payment-links/{id}")]
-    public async Task<ActionResult<PaymentLinkItemDto>> GetPaymentLinkByIdentifier(string id)
+    public async Task<ActionResult<PaymentLinkDto>> GetPaymentLinkByIdentifier(string id)
     {
         var paymentLink = await paymentLinksService.GetPaymentLinkByIdentifierAsync(id);
         if (paymentLink == null)

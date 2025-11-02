@@ -8,7 +8,7 @@ public class PaymentProviderClient(HttpClient httpClient)
 {
     public async Task<string?> GeneratePaymentLink(PaymentLinkInputModel input)
     {
-        var response = await httpClient.PostAsJsonAsync("payment-links", input);
+        var response = await httpClient.PostAsJsonAsync("paymentgateway/payment-links", input);
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadFromJsonAsync<PaymentLinkResponse>();
